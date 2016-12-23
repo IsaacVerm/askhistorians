@@ -4,6 +4,7 @@
 
 library(jsonlite)
 library(data.table)
+library(anytime)
 
 ## remarks
 
@@ -64,7 +65,7 @@ names(questions[[1]][["data"]][["children"]][["data"]])
 
 interesting_var <- c("selftext","gilded","author","name","score","over_18","edited","link_flair_css_class",
                      "author_flair_css_class","archived","url","author_flair_text","title","link_flair_text",
-                     "num_comments","ups")
+                     "num_comments","ups","created")
 
 # extract
 
@@ -81,6 +82,12 @@ interesting_info <- lapply(questions,
 ## bind as dataframe
 
 top_questions <- rbindlist(interesting_info)
+
+## correct data types
+
+# date
+
+top_questions$created <- anytime(top_questions$created)
 
 ### save
 
