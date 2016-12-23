@@ -62,9 +62,7 @@ names(questions[[1]][["data"]][["children"]][["data"]])
 
 # interesting variables
 
-questions[[1]][["data"]][["children"]][["data"]][["ups"]]
-
-interesting_var <- c("selftext","gilded","author","score","over_18","edited","link_flair_css_class",
+interesting_var <- c("selftext","gilded","author","name","score","over_18","edited","link_flair_css_class",
                      "author_flair_css_class","archived","url","author_flair_text","title","link_flair_text",
                      "num_comments","ups")
 

@@ -1,0 +1,6 @@
+# No history
+*.Rhistory
+
+# No data
+*.RData
+*.csv
