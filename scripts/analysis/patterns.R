@@ -4,6 +4,7 @@
 
 library(ggplot2)
 library(dplyr)
+library(chron)
 
 ## clean workspace
 
@@ -31,7 +32,7 @@ comments <- mutate(comments, length_answer = nchar(body))
 graph_lenghty_answers_rewarded <- ggplot(data = comments,
                                          aes(x = length_answer, y = score)) + geom_point(alpha = 0.1)
 
-### is length of answer awarded (lengthy answers take time)?
+### is length of answer awarded (content disappears quickly)?
 
 ## calculate time it took to post
 
@@ -45,20 +46,38 @@ comments <- left_join(x = comments,
 
 comments <- mutate(comments, hours_since_creation = (created.x - created.y)/(60*60))
 
-## what is a lengthy answer
+## relate score to time post was created
 
-graph_lengthy_answer <- ggplot(data = comments, aes(x = length_answer)) + geom_histogram(binwidth = 200)
+graph_content_disappears <- ggplot(data = comments,
+                                   aes(x = hours_since_creation, y = score)) +
+                            geom_point() +
+                            scale_x_continuous(limits = c(0,125))
 
-## scatterplot: time to answer vs score (taking into account length of answer)
+### is length of answer awarded (longer answers take more time)?
 
-graph_time_to_answer_score <- ggplot(data = comments,
-                                     aes(x = hours_since_creation, y = score)) + geom_point(aes(colour = length_answer))
+## graph 
 
-graph_length_takes_time <- ggplot(data = comments,
-                                  aes(x = length_answer, y = hours_since_creation)) + geom_point() + scale_x_continuous(limits = c(2500, 17500))
+quality_takes_time <- ggplot(data = comments,
+                             aes(x = length_answer, y = hours_since_creation))
 
-graph_length_takes_times <- ggplot(data = filter(comments, length_answer > 2500),
-                                   aes(x = hours_since_creation)) + geom_histogram(binwidth = 25)
+graph_quality_takes_time <- quality_takes_time + geom_point()
+
+graph_quality_takes_time_24h <- quality_takes_time + 
+                                scale_y_continuous(limits = c(0,48)) +
+                                geom_point(alpha = 0.1)
+
+### do weekend posts have an advantage?
+
+## frequency posts by weekday
+
+posts_by_weekday <- as.data.frame(table(weekdays(top_questions$created)))
+
+names(posts_by_weekday) <- c("day","frequency")
+
+## graph
+
+graph_weekend_advantage <- ggplot(data = posts_by_weekday,
+                                  aes(x = day, y = frequency)) + geom_bar(stat = "identity")
 
 ### save
 
