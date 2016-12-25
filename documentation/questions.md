@@ -40,6 +40,12 @@ Assuming people have more time during the weekend, do questions posed during the
 
 Seems not be the case, a small drop on Saturday can even be noticed.
 
+## What type of questions are popular?
+
+Just a Word cloud. 
+
+![](/output/analysis/patterns/graph_titles_wordcloud.png?raw=true)
+
 # Users
 
 ## Which users contributed the most?

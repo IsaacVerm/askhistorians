@@ -5,6 +5,8 @@
 library(ggplot2)
 library(dplyr)
 library(chron)
+library(tm)
+library(wordcloud)
 
 ## clean workspace
 
@@ -78,6 +80,46 @@ names(posts_by_weekday) <- c("day","frequency")
 
 graph_weekend_advantage <- ggplot(data = posts_by_weekday,
                                   aes(x = day, y = frequency)) + geom_bar(stat = "identity")
+
+### what type of questions are popular?
+
+## preprocessing text
+
+# corpus
+
+titles <- Corpus(VectorSource(top_questions$title))
+
+# remove superfluous info (punctuation,...)
+
+titles <- titles %>% 
+                tm_map(function(x) iconv(x, to = "UTF-8", sub = "byte")) %>%
+                        tm_map(removePunctuation) %>% 
+                                  tm_map(tolower) %>% 
+                                            tm_map(removeNumbers) %>% 
+                                                    tm_map(removeWords, stopwords("english")) %>%
+                                                            tm_map(stemDocument) %>%
+                                                                    tm_map(stripWhitespace)
+
+# treat as text
+
+titles <- tm_map(titles, PlainTextDocument)
+
+# stage
+
+dtm_titles <- DocumentTermMatrix(titles)
+
+## wordcloud
+
+# calculate word frequency
+
+word_freq <- sort(colSums(as.matrix(dtm_titles)), decreasing = TRUE)
+
+# graph
+
+png(file = file.path(base,"output","analysis","patterns","graph_titles_wordcloud.png"))
+wordcloud(words = names(word_freq[1:100]),
+          freq = word_freq[1:100])
+dev.off()
 
 ### save
 
