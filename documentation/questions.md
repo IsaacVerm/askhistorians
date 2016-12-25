@@ -57,6 +57,42 @@ It's a bit of a pity there's some overlap of username labels but I don't think t
 
 Georgy_K_Zhukov seems to be in another league than everyone else. Having made nearly a thousand comments in roughly 1/4 of all top questions asked by users is quite a feat. In no way I want to underestimate the work done by other users, it's just that there really is a gap of about 500 comments with the second contender.
 
-## Where do users find the time to answer these questions
+## When do user answer questions?
 
-I sometimes wonder how these answers are written. Obviously writing an in-depth answer takes some time, do people take a specific time to answer these answers or is it more an ad-hoc thing?
+We can look at this question in some different ways:
+
+* high-level: overview of all questions
+* favourite days
+* favourite hours
+
+### Overview
+
+Let's start with plotting an overview of the time created for all top 20 users:
+
+![](/output/analysis/users/graph_time_overview.png?raw=true)
+
+There are not a lot of users displaying the same level of activity all through their posting career. Some people gave up (e.g. Algernon_Asimov) and some slowly increased their level of activity (e.g. Searocksandtrees). Once again Georgy_K_Zhukov stands out for having a consistent level of minimum output (and this for several years). To a somewhat lesser amount this is also the case for users like Tiako, vertexoflife, yodatsracist,... Good thing is some real good contributors joined recently (e.g. commiespaceinvader, sunagainstgold, Iphikrates, ...). 
+
+### Favourite days
+
+Let's dive a bit deeper in the timestamps. Do users have favourite days for commenting? This might not be 100% correct since users probably come from all kinds of different places (so the timestamp should in fact be in another timezone). 
+
+![](/output/analysis/users/graph_time_favourity_days.png?raw=true)
+
+Some users have their preferred days of posting. For yodatsracist commenting seems like a Monday thing, while for Georgy_K_Zhukov Thursday is the most productive day. I would have accepted to observe some kind of a weekend effect but this rarely seems to exist.
+
+### Favourite hours
+
+So some users have their favourite days to post, is there also variation in what hour is preferred?
+
+![](/output/analysis/users/graph_time_favourity_hours.png?raw=true)
+
+Some things catch the eye immediately:
+
+* some people seem to never sleep (sunagainstgold)
+* users come from different timezones, a large gap can be noticed for almost all users
+* users don't seem to have a specific time they take the time to reply
+
+# Disclaimer
+
+I just took a quick glance at the data so I can in no way guarantee I haven't made any error. If you find anything wrong or just very much not to your liking, please let me know.

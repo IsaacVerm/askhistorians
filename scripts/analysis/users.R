@@ -4,6 +4,8 @@
 
 library(ggplot2)
 library(dplyr)
+library(chron)
+library(lubridate)
 
 ## clean workspace
 
@@ -60,6 +62,43 @@ graph_user_contributions <- ggplot(data = contributions_by_top_user,
                                    aes(x = nr_comments, y = nr_questions)) + 
                                    geom_point(colour = "grey50") +
                                    geom_text(aes(label = author), size = 2, hjust = "inward")
+
+### When do user answer questions?
+
+## overview
+
+graph_time_overview <- ggplot(data = filter(comments, author %in% contributions_by_top_user$author),
+                              aes(x = created)) + 
+                              geom_histogram() +
+                              facet_wrap(~author)
+
+## favourite days
+
+# calculate weekday
+
+comments <- mutate(comments, weekday_created = factor(weekdays(created),
+                                                      levels = c("maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag")))
+comments$weekday_created <- plyr::mapvalues(x = comments$weekday_created,
+                                            from = levels(comments$weekday_created),
+                                            to = c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
+
+# graph
+
+graph_time <- ggplot(data = filter(comments, author %in% contributions_by_top_user$author)) + 
+                     facet_wrap(~author) + 
+                     theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+graph_time_favourite_days <- graph_time + geom_bar(stat = "count", aes(x = weekday_created))
+
+## favourite hours
+
+# calculate hour
+
+comments <- mutate(comments, hour_created = lubridate::hour(created))
+
+# graph
+  
+graph_time_favourite_hours <- graph_time + geom_bar(stat = "count", aes(x = hour_created))
 
 ### save
 
