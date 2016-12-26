@@ -70,7 +70,9 @@ graph_user_contributions <- ggplot(data = contributions_by_top_user,
 graph_time_overview <- ggplot(data = filter(comments, author %in% contributions_by_top_user$author),
                               aes(x = created)) + 
                               geom_histogram() +
-                              facet_wrap(~author)
+                              facet_wrap(~author) + 
+                              theme(axis.text.x = element_text(angle = 90, hjust = 1),
+                                    strip.text.x = element_text(size = 5))
 
 ## favourite days
 
@@ -86,7 +88,8 @@ comments$weekday_created <- plyr::mapvalues(x = comments$weekday_created,
 
 graph_time <- ggplot(data = filter(comments, author %in% contributions_by_top_user$author)) + 
                      facet_wrap(~author) + 
-                     theme(axis.text.x = element_text(angle = 90, hjust = 1))
+                     theme(axis.text.x = element_text(angle = 90, hjust = 1),
+                           strip.text.x = element_text(size = 5))
 
 graph_time_favourite_days <- graph_time + geom_bar(stat = "count", aes(x = weekday_created))
 
@@ -98,7 +101,8 @@ comments <- mutate(comments, hour_created = lubridate::hour(created))
 
 # graph
   
-graph_time_favourite_hours <- graph_time + geom_bar(stat = "count", aes(x = hour_created))
+graph_time_favourite_hours <- graph_time %+% filter(comments, author %in% contributions_by_top_user$author) + 
+                              geom_bar(stat = "count", aes(x = hour_created)) 
 
 ### save
 

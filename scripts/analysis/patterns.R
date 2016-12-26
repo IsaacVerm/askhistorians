@@ -76,10 +76,18 @@ posts_by_weekday <- as.data.frame(table(weekdays(top_questions$created)))
 
 names(posts_by_weekday) <- c("day","frequency")
 
+posts_by_weekday$day <- factor(posts_by_weekday$day,
+                               levels = c("maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag"))
+
+posts_by_weekday$day <- plyr::mapvalues(x = posts_by_weekday$day,
+                                        from = levels(posts_by_weekday$day),
+                                        to = c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
+
 ## graph
 
 graph_weekend_advantage <- ggplot(data = posts_by_weekday,
-                                  aes(x = day, y = frequency)) + geom_bar(stat = "identity")
+                                  aes(x = day, y = frequency)) + geom_bar(stat = "identity") + 
+                                  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ### what type of questions are popular?
 

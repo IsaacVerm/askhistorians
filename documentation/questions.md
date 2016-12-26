@@ -1,24 +1,23 @@
-# Questions
+# Introduction
 
-* What type of questions are most popular?
-	* time period
-	* short/long
-	* nsfw
-* Is length of answer awarded?
-* Who has the most/longest answers?
-* How many comments are removed?
-* How fast do questions get an answer?
+I divided the questions answered in questions answered on general patterns and specific users. The questions I tried to answer are not too deep, just had a quick glance at the data.
+
+Data obtained by using the [Reddit API](https://www.reddit.com/dev/api/). I was able to extract the top most popular questions of all time and the most relevant comments for each of these questions.
+
+I'm no native speaker so I apologize in advance if the writing style is a bit dry at times.
 
 # Patterns
 
 ## Is length of answer awarded?
 
+People sometimes write really long answers but do these answers get picked up by other users?
+
 ![](/output/analysis/patterns/graph_lenghty_answers_rewarded.png?raw=true)
 
-There seems to be a slightly negative correlation between the length of an answer (displayed as number of characters) and the score the answer gets. We would expect the opposite. Longer answers are probably higher quality (not a certainty off course but we can imagine more sources being incorporated, etc...). I can see two reasons how this could be the case:
+There seems to be a slightly negative correlation between the length of an answer (displayed as number of characters) and the score the answer gets. We would expect the opposite. Longer answers are probably higher quality (not a certainty of course but we can imagine more sources being incorporated, etc...). I can see two reasons how this could be the case:
 
 * either quality lenghty answers just don't get the recognition they deserve
-* or writing lengthy answers takes time and in the mean time other answers already got the bulk of the attention
+* or writing lengthy answers takes time and in the meantime other answers already got the bulk of the attention
 
 I'm more inclined toward the second reason. The Reddit system is such that content disappears relatively quickly as demonstrated by the following graph:
 
@@ -42,7 +41,7 @@ Seems not be the case, a small drop on Saturday can even be noticed.
 
 ## What type of questions are popular?
 
-Just a Word cloud. 
+Just a Word cloud of the 1000 most popular questions.
 
 ![](/output/analysis/patterns/graph_titles_wordcloud.png?raw=true)
 
@@ -55,7 +54,7 @@ Contributing in two senses:
 * number of comments written
 * number of questions contributed to
 
-The following graph only focused on the top 20 users regarding number of comments written:
+The following graph only focused on the top 20 users regarding number of comments written. nr_comments is the total number of answers posted, nr_questions is the number of questions answered to. E.g. 10 answers in the same post would mean the nr_questions is 1 but the nr_comments is 10.
 
 ![](/output/analysis/users/graph_user_contributions.png?raw=true)
 
@@ -63,7 +62,7 @@ It's a bit of a pity there's some overlap of username labels but I don't think t
 
 Georgy_K_Zhukov seems to be in another league than everyone else. Having made nearly a thousand comments in roughly 1/4 of all top questions asked by users is quite a feat. In no way I want to underestimate the work done by other users, it's just that there really is a gap of about 500 comments with the second contender.
 
-## When do user answer questions?
+## When do users answer questions?
 
 We can look at this question in some different ways:
 
@@ -77,13 +76,13 @@ Let's start with plotting an overview of the time created for all top 20 users:
 
 ![](/output/analysis/users/graph_time_overview.png?raw=true)
 
-There are not a lot of users displaying the same level of activity all through their posting career. Some people gave up (e.g. Algernon_Asimov) and some slowly increased their level of activity (e.g. Searocksandtrees). Once again Georgy_K_Zhukov stands out for having a consistent level of minimum output (and this for several years). To a somewhat lesser amount this is also the case for users like Tiako, vertexoflife, yodatsracist,... Good thing is some real good contributors joined recently (e.g. commiespaceinvader, sunagainstgold, Iphikrates, ...). 
+There are not a lot of users displaying the same level of activity all through their posting career. Some people gave up (e.g. Algernon_Asimov) and some slowly increased their level of activity (e.g. Searocksandtrees). Once again Georgy_K_Zhukov stands out for having a consistent level of minimum output (and this for several years). To a somewhat lesser amount this is also the case for users like Tiako, vertexoflife, yodatsracist,... Good thing is some real productive contributors joined recently (e.g. commiespaceinvader, sunagainstgold, Iphikrates, ...). 
 
 ### Favourite days
 
 Let's dive a bit deeper in the timestamps. Do users have favourite days for commenting? This might not be 100% correct since users probably come from all kinds of different places (so the timestamp should in fact be in another timezone). 
 
-![](/output/analysis/users/graph_time_favourity_days.png?raw=true)
+![](/output/analysis/users/graph_time_favourite_days.png?raw=true)
 
 Some users have their preferred days of posting. For yodatsracist commenting seems like a Monday thing, while for Georgy_K_Zhukov Thursday is the most productive day. I would have accepted to observe some kind of a weekend effect but this rarely seems to exist.
 
@@ -91,7 +90,7 @@ Some users have their preferred days of posting. For yodatsracist commenting see
 
 So some users have their favourite days to post, is there also variation in what hour is preferred?
 
-![](/output/analysis/users/graph_time_favourity_hours.png?raw=true)
+![](/output/analysis/users/graph_time_favourite_hours.png?raw=true)
 
 Some things catch the eye immediately:
 
